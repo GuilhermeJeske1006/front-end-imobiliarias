@@ -1,25 +1,25 @@
 <script setup>
-import { useProdutoStore } from "@/stores/ProdutoStore";
+import { useImovelStore } from "@/stores/ImovelStore";
 
 const props = defineProps({
-  produtoId: {
+  imovelId: {
     type: Number,
     required: true,
   },
 });
 
-const produto = useProdutoStore();
+const imovel = useImovelStore();
 
-const excluirProduto = () => {
-  produto.ProdutoDeletar(props.produtoId);
-  produto.modalExcluir = false;
-  produto.ProdutoListar();
+const excluirImovel = () => {
+  imovel.ImovelDeletar(props.imovelId);
+  imovel.modalExcluir = false;
+  imovel.ImovelListar();
 };
 </script>
 
 <template>
   <div class="text-center">
-    <v-dialog v-model="produto.modalExcluir" width="500">
+    <v-dialog v-model="imovel.modalExcluir" width="500">
       <VCard>
         <VWindow>
           <VWindowItem class="text-center">
@@ -29,11 +29,11 @@ const excluirProduto = () => {
             </VCardItem>
             <VCardText
               >Você ira excluir permanentemente o produto
-              {{ props.produtoId }}</VCardText
+              {{ props.imovelId }} ?</VCardText
             >
 
             <VCardText>
-              <VBtn color="error " @click="excluirProduto">Excluir</VBtn>
+              <VBtn color="error " @click="excluirImovel">Excluir</VBtn>
             </VCardText>
           </VWindowItem>
         </VWindow>

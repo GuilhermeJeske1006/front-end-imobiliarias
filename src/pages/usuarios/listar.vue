@@ -47,9 +47,6 @@ const computedTableData = computed(() => {
   return tableData.value;
 });
 
-const pageCount = computed(() => {
-  return Math.ceil(tableData.value.length);
-});
 
 const searchResult = (filterText, id) => {
   use.filtrar = filterText;
@@ -57,19 +54,25 @@ const searchResult = (filterText, id) => {
   use.UsuarioListar();
 };
 
+const pageCount = computed(() => {
+  return use.user?.meta?.last_page || 1;  
+});
+
 watch(
-  () => use.user.meta.current_page,
+  () => use.user?.meta?.current_page,  
   (newValue, oldValue) => {
-    if (newValue !== oldValue) {
-      use.UsuarioListar(newValue);
+    if (newValue !== oldValue && newValue) {
+      use.UsuarioListar(newValue);  
     }
   }
 );
 
 watch(
-  () => use.user,
+  () => use.user?.data,  
   (newValue) => {
-    tableData.value = updateTableData(newValue.data);
+    if (newValue) {
+      tableData.value = updateTableData(newValue);  
+    }
   }
 );
 

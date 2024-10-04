@@ -1,5 +1,6 @@
 <script setup>
 import loading from "@/components/geral/LoadingOverlay.vue";
+import router from "@/router";
 import { useImovelStore } from "@/stores/ImovelStore";
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
@@ -185,11 +186,9 @@ const goToPass = (item) => {
 };
 
 const formatValorEnvio = (valor) => {
-  let formattedValor = valor.replace(/^R\$\s*/, "");
-  formattedValor = formattedValor.replace(",", ".");
-
-  return formattedValor;
+  return valor.replace(/^R\$\s*/, "").replace(/[.,]/g, "");
 };
+
 
 const submit = async () => {
   const data = {
@@ -199,11 +198,11 @@ const submit = async () => {
   };
   console.log(data);
 
-  // await produto.ProdutoEditar(data, route.params.id);
+  await imovel.ImovelEditar(data, route.params.id);
 
-  // if (produto.produtoEditado) {
-  //   router.push({ path: `/produtos/listar` });
-  // }
+  if (imovel.imovelEditado) {
+    router.push({ path: `/imoveis/listar` });
+  }
 };
 
 const updateItens = (item) => {

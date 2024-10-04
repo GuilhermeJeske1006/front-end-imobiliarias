@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
+import { useToast } from 'vue-toastification';
 
 
 export const useImovelStore = defineStore('imovel', {
@@ -11,6 +12,7 @@ export const useImovelStore = defineStore('imovel', {
       negociacao: [],
       filtrar: '',
       produtoId: null,
+      imovelEditado: false,
       modalDesconto: false,
       modalRemoverDesconto: false,
       modalExcluir: false,
@@ -134,53 +136,54 @@ export const useImovelStore = defineStore('imovel', {
       });
     },
 
-    // ProdutoEditar(data, produtoId){
-    //   this.isLoading = true
+    ImovelEditar(data, imovelId){
+      this.isLoading = true
 
-    //   return new Promise((resolve, reject) => {
-    //     axios
-    //       .put(`produto/${produtoId}`, {
-    //         empresa_id: this.empresa_id,
-    //         ...data,
-    //       })
-    //       .then((res) => {
-    //         this.produtoEditado = true
-    //         resolve();
-    //         useToast().success("Produto editado com sucesso!");
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //         reject(error); 
-    //         useToast().error("Erro ao editar o Produto!");
+      return new Promise((resolve, reject) => {
+        axios
+          .put(`imovel/editar/${imovelId}`, {
+            empresa_id: this.empresa_id,
+            ...data,
+          })
+          .then((res) => {
+            console.log(res)
+            this.imovelEditado = true
+            resolve();
+            useToast().success("Imovel editado com sucesso!");
+          })
+          .catch((error) => {
+            console.log(error);
+            reject(error); 
+            useToast().error("Erro ao editar o Produto!");
 
-    //       })
-    //       .finally(() => {
-    //         this.isLoading = false; 
-    //       });
-    //   });
-    // },
+          })
+          .finally(() => {
+            this.isLoading = false; 
+          });
+      });
+    },
 
-    // ProdutoDeletar(id){
-    //   this.isLoading = true
+    ImovelDeletar(id){
+      this.isLoading = true
 
-    //   return new Promise((resolve, reject) => {
-    //     axios
-    //       .delete(`produto/deletar/${id}`)
-    //       .then((res) => {
-    //         resolve(); // Resolva a Promise sem nenhum valor adicional
-    //         useToast().success("Produto excluido com sucesso!");
+      return new Promise((resolve, reject) => {
+        axios
+          .delete(`imovel/delete/${id}`)
+          .then((res) => {
+            resolve(); // Resolva a Promise sem nenhum valor adicional
+            useToast().success("Imovel excluido com sucesso!");
 
-    //       })
-    //       .catch((error) => {
-    //         reject(error); // Rejeite a Promise com o erro
-    //         useToast().error("Erro ao excluir o produto! Tente novamente!");
+          })
+          .catch((error) => {
+            reject(error); // Rejeite a Promise com o erro
+            useToast().error("Erro ao excluir o Imovel! Tente novamente!");
 
-    //       })
-    //       .finally(() => {
-    //         this.isLoading = false; // Defina o estado isLoading como false após a chamada
-    //       });
-    //   });
-    // },
+          })
+          .finally(() => {
+            this.isLoading = false; // Defina o estado isLoading como false após a chamada
+          });
+      });
+    },
 
 
     ExcluirImagem(imagem){

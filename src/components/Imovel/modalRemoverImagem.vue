@@ -6,11 +6,18 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  index: {
+    type: String,
+    required: true,
+  },
 });
 
 const imovel = useImovelStore();
 
+const emit = defineEmits(["update"]);
+
 const excluirImagem = () => {
+  emit("update", props.index);
   imovel.ExcluirImagem(props.imagem);
   imovel.modalExcluirImagem = false;
 };

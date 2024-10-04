@@ -18,6 +18,7 @@ const trocarEmpresa = () => {
 };
 
 const empresas = computed(() => {
+  console.log(use.empresas, 'use.empresas');
   let result = [];
   if (Array.isArray(use.empresas)) {
     result = use.empresas.map((element) => {

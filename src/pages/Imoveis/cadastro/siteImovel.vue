@@ -39,12 +39,6 @@
                 <!-- 👉 First Name -->
                 <VCol md="6" cols="12">
                   <v-switch
-                    v-model="props.item.ir_para_site"
-                    label="Ir para o site"
-                  ></v-switch>
-                </VCol>
-                <VCol md="6" cols="12">
-                  <v-switch
                     v-model="props.item.destaque"
                     label="Produto em destaque"
                   ></v-switch>

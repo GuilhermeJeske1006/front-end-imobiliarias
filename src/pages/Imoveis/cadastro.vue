@@ -1,8 +1,7 @@
 <script setup>
 import loading from "@/components/geral/LoadingOverlay.vue";
-import { computed, onMounted, ref } from "vue";
-
 import { useImovelStore } from "@/stores/ImovelStore";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import ArquivoImovel from "./cadastro/arquivoImovel.vue";
 import InformacaoBasica from "./cadastro/informacaoBasica.vue";
@@ -72,9 +71,8 @@ const goToPass = (item) => {
 
 const formatValor = (valor) => {
   if (typeof valor === "string") {
-    let formattedValor = valor.replace(/^R\$\s*/, "");
-    formattedValor = formattedValor.replace(",", ".");
-    return formattedValor;
+      return valor.replace(/^R\$\s*/, "").replace(/[.,]/g, "");
+
   }
 };
 
@@ -89,7 +87,7 @@ const submit = async () => {
   await imovel.ImovelSalvar(data);
 
   if (imovel.imovelSalvo) {
-    router.push({ path: "/imoveis/listar" });
+    route.push({ path: "/imoveis/listar" });
   }
 };
 

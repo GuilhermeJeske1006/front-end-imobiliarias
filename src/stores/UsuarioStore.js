@@ -123,13 +123,13 @@ export const useUsuarioStore = defineStore('usuario', {
           })
           .then((res) => {
             resolve(); // Resolva a Promise sem nenhum valor adicional
-            useToast().success("Usuario cadastrado com sucesso!");
+            useToast().success("Usuario editado com sucesso!");
 
           })
           .catch((error) => {
             console.log(error);
             reject(error); // Rejeite a Promise com o erro
-            useToast().error("Erro ao cadastrar o usuario!");
+            useToast().error("Erro ao editar o usuario!");
 
           })
           .finally(() => {
@@ -229,7 +229,7 @@ export const useUsuarioStore = defineStore('usuario', {
           .get(`empresa/usuario/${localStorage.getItem('usuario_id')}`
           )
           .then((res) => {
-            this.empresas = res.data;
+            this.empresas = res.data.data;
             resolve();
           })
           .catch((error) => {

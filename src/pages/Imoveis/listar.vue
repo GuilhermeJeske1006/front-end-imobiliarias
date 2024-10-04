@@ -2,6 +2,7 @@
 import CardTable from "@/components/cardTable.vue";
 import Filter from "@/components/filter.vue";
 import loading from "@/components/geral/LoadingOverlay.vue";
+import ModalExcluir from "@/components/Imovel/modalExcluir.vue";
 import router from "@/router";
 import { useImovelStore } from "@/stores/ImovelStore";
 import { onMounted } from "vue";
@@ -37,13 +38,8 @@ onMounted(async () => {
   tableData.value = updateTableData(imovel.imoveis.data);
 });
 
-const computedTableData = computed(() => {
-  return tableData.value;
-});
 
-const pageCount = computed(() => {
-  return Math.ceil(tableData.value.length / 9);
-});
+
 
 const searchResult = (filterText, id) => {
   imovel.filtrar = filterText;
@@ -52,24 +48,36 @@ const searchResult = (filterText, id) => {
 };
 
 watch(
-  () => imovel?.imoveis,
+  () => imovel?.imoveis?.data,  // Observa os dados da lista de imóveis
   (newValue) => {
-    tableData.value = updateTableData(newValue.data);
+    if (newValue) {
+      tableData.value = updateTableData(newValue);  // Atualiza os dados da tabela
+    }
   }
 );
+
+const computedTableData = computed(() => {
+  return tableData.value;
+});
+
+const pageCount = computed(() => {
+  return imovel?.imoveis?.meta?.last_page || 1;  // Pega o número total de páginas ou 1 como fallback
+});
 
 watch(
   () => imovel?.imoveis?.meta?.current_page,
   (newValue, oldValue) => {
     if (newValue !== oldValue) {
-      imovel.ImovelListar(newValue);
+      imovel.ImovelListar(newValue);  // Chama a função para buscar os imóveis da nova página
     }
   }
 );
+
 </script>
 
 <template>
   <loading :is-loading="imovel.isLoading" />
+  <ModalExcluir :imovelId="imovelId" />
 
   <VRow>
     <VCol cols="12">

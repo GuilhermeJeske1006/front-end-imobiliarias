@@ -41,9 +41,7 @@ const computedTableData = computed(() => {
   return tableData.value;
 });
 
-const pageCount = computed(() => {
-  return Math.ceil(tableData.value.length / 9);
-});
+
 
 const searchResult = (filterText, id) => {
   blog.filtrar = filterText;
@@ -51,21 +49,28 @@ const searchResult = (filterText, id) => {
   blog.BlogListar();
 };
 
+const pageCount = computed(() => {
+  return blog.blogs?.meta?.last_page || 1;  // Usa o last_page do backend ou define 1 como fallback
+});
+
 watch(
-  () => blog.blogs.meta.current_page,
+  () => blog.blogs?.meta?.current_page,  
   (newValue, oldValue) => {
-    if (newValue !== oldValue) {
-      blog.BlogListar(newValue);
+    if (newValue !== oldValue && newValue) {
+      blog.BlogListar(newValue);  
     }
   }
 );
 
 watch(
-  () => blog.blogs,
+  () => blog.blogs?.data,  
   (newValue) => {
-    tableData.value = updateTableData(newValue.data);
+    if (newValue) {
+      tableData.value = updateTableData(newValue);  
+    }
   }
 );
+
 </script>
 
 <template>

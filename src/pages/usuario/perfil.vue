@@ -36,27 +36,19 @@ const perfil = ref({
   creci: "",
 });
 
-const updateEditar = () => {
-  if (usuario.perfil && usuario.perfil.id) {
-    perfil.value.foto = usuario.perfil.foto || "";
-    perfil.value.nome = usuario.perfil.nome || "";
-    perfil.value.email = usuario.perfil.email || "";
-    perfil.value.telefone = usuario.perfil.telefone || "";
-    perfil.value.tipo_usuario_id = usuario.perfil.tipo_usuario_id || "";
-    perfil.value.creci = usuario.perfil.creci || "";
-  }
-};
-
-
+// Watch for changes in usuario.perfil
 watch(
-  () => usuario.usuario, 
-  () => {
-    updateEditar(); 
+  () => usuario.perfil,
+  (newPerfil) => {
+      perfil.value.foto = newPerfil.foto || "";
+      perfil.value.nome = newPerfil.nome || "";
+      perfil.value.email = newPerfil.email || "";
+      perfil.value.telefone = newPerfil.telefone || "";
+      perfil.value.tipo_usuario_id = newPerfil.tipo_usuario_id || "";
+      perfil.value.creci = newPerfil.creci || "";
   },
   { immediate: true } 
 );
-
-
 const refInputEl = ref();
 const accountDataLocal = ref(
   structuredClone(JSON.parse(JSON.stringify(usuario.perfil)))

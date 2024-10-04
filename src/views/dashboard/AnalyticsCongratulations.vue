@@ -21,12 +21,12 @@ const illustrationJohn = computed(() =>
 
         <VCardText>
           <span>
-            Gerencie os seu produtos e pedidos
+            Gerencie os seu imoveis
             <br />
             com facilidade e rapidez.
           </span>
           <br />
-          <VBtn variant="tonal" class="mt-4" size="small"> Ver pedidos </VBtn>
+          <VBtn variant="tonal" class="mt-4" size="small"> Ver imoveis </VBtn>
         </VCardText>
       </VCol>
 
