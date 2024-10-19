@@ -90,7 +90,7 @@
 <script setup>
 import ModalRemoverImagem from "@/components/Imovel/modalRemoverImagem.vue";
 import { useImovelStore } from "@/stores/ImovelStore";
-import { ref, watch } from "vue";
+import { ref } from "vue";
 const props = defineProps({
   item: {
     type: Object,
@@ -136,31 +136,19 @@ const formatImagemEnvio = (item) => {
   return item;
 };
 
-watch(
-  () => imovel.imagemRemovida,
-  (newValue) => {
-    if (newValue) {
-      console.log('newValue', newValue)
-    }
-  }
-);
 
 const removeIndex = (index) => {
   console.log('index', index)
-  if (imovel.imagemRemovida) {
-    props.item.splice(index, 1);
-    imovel.imagemRemovida = false; // Reseta o status para futuras operações
-  }
+  props.item.splice(index, 1);
+  imovel.imagemRemovida = false;
 };
 
 const removeImage = (index, item = null) => {
   if (item.startsWith("https")) {
-    // Exibe o modal para confirmação
     imovel.modalExcluirImagem = true;
-    imagem.value = formatImagemEnvio(item); // Formata a imagem (se necessário)
+    imagem.value = formatImagemEnvio(item);
     indexImage.value = index;
   } else {
-    // Remove a imagem diretamente se não for uma URL
     props.item.splice(index, 1);
   }
 };

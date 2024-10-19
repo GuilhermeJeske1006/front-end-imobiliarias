@@ -1,4 +1,4 @@
-export const staticPrimaryColor = '#4A90E2'; // Azul principal
+export const staticPrimaryColor = '#069dd4'; // Azul claro
 
 const theme = {
   defaultTheme: 'light',
@@ -6,9 +6,9 @@ const theme = {
     light: {
       dark: false,
       colors: {
-        'primary': '#4A90E2',           // Azul forte
-        'on-primary': '#FFFFFF',
-        'secondary': '#50B5E9',         // Azul claro
+        'primary': '#069dd4',           // Azul claro
+        'on-primary': '#FFFFFF',        // Texto em branco
+        'secondary': '#099BD8',         // Azul degradê
         'on-secondary': '#FFFFFF',
         'success': '#4CAF50',           // Verde para sucesso
         'on-success': '#FFFFFF',
@@ -17,9 +17,9 @@ const theme = {
         'warning': '#FFB300',           // Amarelo para alerta
         'on-warning': '#FFFFFF',
         'error': '#E53935',             // Vermelho para erro
-        'background': '#F0F4F8',        // Azul muito claro para o fundo
-        'on-background': '#32475C',     // Azul escuro para contraste
-        'on-surface': '#32475C',
+        'background': '#FFFFFF',        // Fundo branco
+        'on-background': '#1A1A1A',     // Texto em cinza escuro
+        'on-surface': '#1A1A1A',
         'grey-50': '#FAFAFA',
         'grey-100': '#EBEEF0',
         'grey-200': '#EEEEEE',
@@ -30,23 +30,23 @@ const theme = {
         'grey-700': '#616161',
         'grey-800': '#424242',
         'grey-900': '#212121',
-        'perfect-scrollbar-thumb': '#C8D6E5',  // Azul claro para o scroll
+        'perfect-scrollbar-thumb': '#C8D6E5',
         'skin-bordered-background': '#FFFFFF',
         'skin-bordered-surface': '#FFFFFF',
       },
       variables: {
-        'code-color': '#004BA0',         // Azul muito escuro
-        'overlay-scrim-background': '#32475C',
+        'code-color': '#099BD8',         // Azul escuro
+        'overlay-scrim-background': '#1A1A1A',
         'overlay-scrim-opacity': 0.5,
-        'border-color': '#32475C',
-        'snackbar-background': '#4A90E2',  // Azul na snackbar
+        'border-color': '#1A1A1A',
+        'snackbar-background': '#0BF0F6', // Azul na snackbar
         'snackbar-color': '#FFFFFF',
         'tooltip-background': '#262732',
         'tooltip-opacity': 0.9,
-        'table-header-background': '#F0F4F8',  // Azul claro para cabeçalhos
+        'table-header-background': '#EBEEF0',  // Azul muito claro para cabeçalhos
 
-        // Shadows
-        'shadow-key-umbra-opacity': 'rgba(50, 50, 93, 0.15)',   // Sombras suaves em azul
+        // Sombras
+        'shadow-key-umbra-opacity': 'rgba(50, 50, 93, 0.15)',  
         'shadow-key-penumbra-opacity': 'rgba(50, 50, 93, 0.10)', 
         'shadow-key-ambient-opacity': 'rgba(0, 0, 0, 0.05)',
       },
@@ -54,9 +54,9 @@ const theme = {
     dark: {
       dark: true,
       colors: {
-        'primary': '#4A90E2',           // Azul predominante
+        'primary': '#0BF0F6',           // Azul claro predominante
         'on-primary': '#FFFFFF',
-        'secondary': '#50B5E9',         // Azul claro
+        'secondary': '#099BD8',         // Azul degradê
         'on-secondary': '#FFFFFF',
         'success': '#4CAF50',           // Verde
         'on-success': '#FFFFFF',
@@ -65,10 +65,10 @@ const theme = {
         'warning': '#FFB300',           // Amarelo
         'on-warning': '#FFFFFF',
         'error': '#E53935',             // Vermelho
-        'background': '#1C2A39',        // Azul escuro para fundo
-        'on-background': '#DBDBEB',     // Branco para texto
+        'background': '#1A1A1A',        // Fundo escuro
+        'on-background': '#FFFFFF',     // Texto em branco
         'surface': '#2B3A4B',           // Superfícies em azul escuro
-        'on-surface': '#DBDBEB',
+        'on-surface': '#FFFFFF',
         'grey-50': '#2A2E42',
         'grey-100': '#444463',
         'grey-200': '#4A5072',
@@ -80,22 +80,22 @@ const theme = {
         'grey-800': '#CFD3EC',
         'grey-900': '#E7E9F6',
         'perfect-scrollbar-thumb': '#4A5072',
-        'skin-bordered-background': '#2B3A4B',
-        'skin-bordered-surface': '#2B3A4B',
+        'skin-bordered-background': '#1A1A1A',
+        'skin-bordered-surface': '#1A1A1A',
       },
       variables: {
-        'code-color': '#004BA0',         // Azul muito escuro
+        'code-color': '#099BD8',         // Azul muito escuro
         'overlay-scrim-background': '#0D0E24',
         'overlay-scrim-opacity': 0.6,
-        'border-color': '#DBDBEB',
-        'snackbar-background': '#4A90E2',  // Azul para a snackbar no tema escuro
+        'border-color': '#FFFFFF',
+        'snackbar-background': '#0BF0F6', // Azul para a snackbar no tema escuro
         'snackbar-color': '#FFFFFF',
         'tooltip-background': '#464A65',
         'tooltip-opacity': 0.9,
-        'table-header-background': '#1C2A39', // Cabeçalhos em azul escuro
+        'table-header-background': '#1A1A1A', // Cabeçalhos escuros
 
-        // Shadows
-        'shadow-key-umbra-opacity': 'rgba(0, 0, 0, 0.20)',    // Sombras fortes no escuro
+        // Sombras
+        'shadow-key-umbra-opacity': 'rgba(0, 0, 0, 0.20)',    
         'shadow-key-penumbra-opacity': 'rgba(0, 0, 0, 0.15)', 
         'shadow-key-ambient-opacity': 'rgba(0, 0, 0, 0.10)',
       },

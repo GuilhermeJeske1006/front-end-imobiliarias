@@ -1,4 +1,5 @@
 <script setup>
+import logo from "@/assets/images/logo.png";
 import loading from "@/components/geral/LoadingOverlay.vue";
 import { useUsuarioStore } from "@/stores/UsuarioStore";
 import { ref } from "vue";
@@ -26,11 +27,12 @@ const submit = () => {
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
     <VCard class="auth-card pa-4 pt-7" max-width="448">
       <VCardItem class="justify-center">
-        <!-- <template #prepend>
-          <div class="d-flex">
-            <div class="d-flex text-primary" v-html="logo" />
+        <template #prepend>
+          <div class="d-flex justify-center">
+            <img class=" w-50  d-flex"  :src="logo" />
+            <!-- <div class="d-flex text-primary" v-html="logo" /> -->
           </div>
-        </template> -->
+        </template>
 
         <!-- <VCardTitle class="text-2xl font-weight-bold"> AutoCar </VCardTitle> -->
       </VCardItem>
