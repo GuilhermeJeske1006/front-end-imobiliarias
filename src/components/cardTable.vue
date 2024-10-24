@@ -1,4 +1,6 @@
 <script>
+import { formatValor } from '@/plugins/functions';
+
 export default {
   name: "Table",
   props: {
@@ -21,12 +23,11 @@ export default {
       this.$emit("action-click", action, item);
     },
 
-    formatVal(val) {
-      return val.toLocaleString("pt-BR", {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      });
-    },
+    formatValor (valor) {
+    return valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+  }
+
+
   },
 };
 </script>
@@ -101,10 +102,9 @@ export default {
             </VCardText>
 
             <VCardText class="text-subtitle-1">
-              <span>Valor :</span>
+              <span>Valor : </span>
               <span class="font-weight-medium">
-                R$
-                <span>{{ formatVal(item.valor) }}</span>
+                <span>{{ item.consultar ? 'Consulte' : item.apartir_de ? 'A partir de ' + formatValor(item.valor) :  formatValor(item.valor)}}</span>
               </span>
             </VCardText>
 

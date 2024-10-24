@@ -70,10 +70,7 @@ const goToPass = (item) => {
 };
 
 const formatValor = (valor) => {
-  if (typeof valor === "string") {
-      return valor.replace(/^R\$\s*/, "").replace(/[.,]/g, "");
-
-  }
+  return valor.replace(/\D/g, "");
 };
 
 const submit = async () => {
@@ -98,6 +95,8 @@ const updateItens = (item) => {
 const cadastro = ref({
   titulo: "",
   descricao: "",
+  apartir_de: false,
+  consultar: false,
   valor: "",
   categoria_id: "",
   negociacao_id: "",

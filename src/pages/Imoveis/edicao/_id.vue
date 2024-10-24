@@ -25,6 +25,12 @@ const editar = ref({
   suites: "",
   banheiros: "",
   garagem: "",
+  area_privativa: "",
+  area_quadrada: "",
+  area_util: "",
+  area_total: "",
+  apartir_de: false,
+  consultar: false,
   
   ir_para_site: true,
   destaque: false,
@@ -85,6 +91,9 @@ const formatValor = (value) => {
   return "R$ " + value;
 };
 
+
+
+
 const formatImagemEnvio = (value) => {
   return value
     .map((item) => {
@@ -123,6 +132,8 @@ const updateTable = computed(() => {
     editar.value.mapa = imovel.imovel.mapa;
     editar.value.slug = imovel.imovel.slug;
     editar.value.video = imovel.imovel.video;
+    editar.value.apartir_de = imovel.imovel.apartir_de;
+    editar.value.consultar = imovel.imovel.consultar;
     editar.value.endereco.cep = imovel.imovel.endereco.cep;
     editar.value.endereco.rua = imovel.imovel.endereco.rua;
     editar.value.endereco.numero = imovel.imovel.endereco.numero;
@@ -186,7 +197,7 @@ const goToPass = (item) => {
 };
 
 const formatValorEnvio = (valor) => {
-  return valor.replace(/^R\$\s*/, "").replace(/[.,]/g, "");
+  return valor.replace(/\D/g, "");
 };
 
 

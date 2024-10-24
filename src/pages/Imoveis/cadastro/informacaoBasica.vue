@@ -64,7 +64,7 @@
                   <h4>Informações iniciais</h4>
                 </VCol>
                 <!-- 👉 First Name -->
-                <VCol md="6" cols="12">
+                <VCol md="8" cols="12">
                   <VTextField
                     v-model="item.titulo"
                     placeholder="ex: Casa na praia"
@@ -73,19 +73,8 @@
                   />
                 </VCol>
 
-                <!-- 👉 Last Name -->
-                <VCol md="3" cols="12">
-                  <VTextField
-                    v-model="item.valor"
-                    placeholder="R$ "
-                    label="Valor do imovel"
-                    @input="formatValor"
-                    :rules="[valorRule]"
-                  />
-                </VCol>
-
                 <!-- 👉 Email -->
-                <VCol cols="12" md="3">
+                <VCol cols="12" md="4">
                   <VSelect
                     v-model="item.categoria_id"
                     label="Categoria"
@@ -96,9 +85,25 @@
                     :rules="[categoriaRule]"
                   />
                 </VCol>
+                <VCol md="2" cols="12" >
+                  <v-checkbox v-model="item.apartir_de" label="A partir de"></v-checkbox>
+                  <v-checkbox v-model="item.consultar" label="Consulte"></v-checkbox>
+
+                </VCol>
+                
+                <VCol md="4" cols="12">
+                  <VTextField
+                  :disabled="item.consultar"
+                    v-model="item.valor"
+                    placeholder="R$ "
+                    label="Valor do imovel"
+                    @input="formatValor"
+                    :rules="[valorRule]"
+                  />
+                </VCol>
 
                 <!-- 👉 Phone -->
-                <VCol cols="12" md="4">
+                <VCol cols="12" md="3">
                   <VSelect
                     v-model="item.negociacao_id"
                     label="Negociação"
@@ -110,7 +115,7 @@
                   />
                 </VCol>
 
-                <VCol md="4" cols="12">
+                <VCol md="3" cols="12">
                   <VTextField
                     v-model="item.dormitorios"
                     placeholder="ex: 1, 2"
@@ -312,7 +317,7 @@
 
 <script setup>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { defineEmits, defineProps, ref } from "vue";
+import { defineEmits, defineProps, ref, watch } from "vue";
 
 const props = defineProps({
   item: {
@@ -363,6 +368,18 @@ const resetAvatar = () => {
   props.item.foto = "";
 };
 
+watch(() => props.item.apartir_de, (value) => {
+  if (value) {
+    props.item.consultar = false;
+  }
+});
+
+watch(() => props.item.consultar, (value) => {
+  if (value) {
+    props.item.apartir_de = false;
+  }
+});
+
 
 const nomeRule = (value) => {
   if (value.length > 0) {
@@ -372,6 +389,9 @@ const nomeRule = (value) => {
 };
 
 const valorRule = (value) => {
+  if(props.item.consulte){
+    return true;
+  }
   const currencyPattern = /^R\$\s?\d+(\.\d{3})*,\d{2}$/;
   if (currencyPattern.test(value)) {
     return true;
