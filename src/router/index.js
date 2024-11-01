@@ -1,10 +1,10 @@
 import adminMiddleware from '@/middleware/adminMiddleware'; // Importe o middleware
 import authMiddleware from '@/middleware/authMiddleware'; // Importe o middleware
 
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
     { path: '/', redirect: '/dashboard' },
     {
