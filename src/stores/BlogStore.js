@@ -75,29 +75,26 @@ export const useBlogStore = defineStore('blog', {
       });
     },
 
-    BlogCadastro(){
-      this.isLoading = true
-
-      return new Promise((resolve, reject) => {
-        axios
-          .post('blog/criar', this.cadastro)
-          .then((res) => {
-            resolve(); // Resolva a Promise sem nenhum valor adicional
-            useToast().success("Blog cadastrado com sucesso!");
-            this.cadastro = {}
-
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error); // Rejeite a Promise com o erro
-            useToast().error("Erro ao cadastrar o Blog!");
-
-          })
-          .finally(() => {
-            this.isLoading = false; // Defina o estado isLoading como false após a chamada
-          });
+    BlogCadastro() {
+      this.isLoading = true;
+    
+      return new Promise(async (resolve, reject) => {
+        try {
+          const res = await axios.post('blog/criar', this.cadastro);
+    
+          resolve(); // Resolva a Promise se a operação for bem-sucedida
+          useToast().success(res.data.message);
+          this.cadastro = {}; // Reseta o objeto de cadastro
+        } catch (error) {
+          console.log(error);
+          reject(error); // Rejeite a Promise com o erro capturado
+          useToast().error(error.response.data.message);
+        } finally {
+          this.isLoading = false; // Garante que o estado isLoading seja atualizado no final
+        }
       });
     },
+    
     
     BlogDeletar(id){
       this.isLoading = true
@@ -120,29 +117,25 @@ export const useBlogStore = defineStore('blog', {
       });
     },
 
-    BlogEditar(id){
-      this.isLoading = true
-
-      return new Promise((resolve, reject) => {
-
-        axios
-          .put(`/blog/editar/${id}`, this.edicao)
-          .then((res) => {
-            resolve(); // Resolva a Promise sem nenhum valor adicional
-            useToast().success("Blog editado com sucesso!");
-
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error); // Rejeite a Promise com o erro
-            useToast().error("Erro ao editar o Blog!");
-
-          })
-          .finally(() => {
-            this.isLoading = false; // Defina o estado isLoading como false após a chamada
-          });
+    BlogEditar(id) {
+      this.isLoading = true;
+    
+      return new Promise(async (resolve, reject) => {
+        try {
+          const res = await axios.put(`/blog/editar/${id}`, this.edicao);
+    
+          resolve(); // Resolva a Promise se a operação for bem-sucedida
+          useToast().success(res.data.message);
+        } catch (error) {
+          console.log(error);
+          reject(error); // Rejeite a Promise com o erro capturado
+          useToast().error(error.response.data.message);
+        } finally {
+          this.isLoading = false; // Garante que o estado isLoading seja atualizado no final
+        }
       });
     },
+    
 
     
   },

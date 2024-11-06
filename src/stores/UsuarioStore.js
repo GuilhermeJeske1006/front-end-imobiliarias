@@ -112,53 +112,49 @@ export const useUsuarioStore = defineStore('usuario', {
       });
     },
 
-    UsuarioEdicao(data){
-      this.isLoading = true
-
-      return new Promise((resolve, reject) => {
-        axios
-          .put(`usuario/editar/${this.user_id}`, {
+    UsuarioEdicao(data) {
+      this.isLoading = true;
+    
+      return new Promise(async (resolve, reject) => {
+        try {
+          const res = await axios.put(`usuario/editar/${this.user_id}`, {
             ...data,
-            empresa_id: this.empresa_id
-          })
-          .then((res) => {
-            resolve(); // Resolva a Promise sem nenhum valor adicional
-            useToast().success("Usuario editado com sucesso!");
-
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error); // Rejeite a Promise com o erro
-            useToast().error("Erro ao editar o usuario!");
-
-          })
-          .finally(() => {
-            this.isLoading = false; // Defina o estado isLoading como false após a chamada
+            empresa_id: this.empresa_id,
           });
+
+          console.log(res);
+    
+          resolve(); // Resolva a Promise se a operação for bem-sucedida
+          useToast().success(res.data.message);
+        } catch (error) {
+          console.log(error);
+          useToast().error(error.response.data.message);
+          reject(error); // Rejeite a Promise com o erro capturado
+        } finally {
+          this.isLoading = false; // Garante que o estado isLoading seja atualizado no final
+        }
       });
     },
+    
 
-    UsuarioEdicaoSenha(){
-      this.isLoading = true
-
-      return new Promise((resolve, reject) => {
-        axios
-          .put(`/usuario/editar/senha/${this.user_id}`, this.password)
-          .then((res) => {
-            resolve(); // Resolva a Promise sem nenhum valor adicional
-            useToast().success(res.response.data.message);
-
-          })
-          .catch((error) => {
-            reject(error); // Rejeite a Promise com o erro
-            useToast().error(error.response.data.message);
-
-          })
-          .finally(() => {
-            this.isLoading = false; // Defina o estado isLoading como false após a chamada
-          });
+    UsuarioEdicaoSenha() {
+      this.isLoading = true;
+    
+      return new Promise(async (resolve, reject) => {
+        try {
+          const res = await axios.put(`/usuario/editar/senha/${this.user_id}`, this.password);
+    
+          resolve(); // Resolva a Promise se a operação for bem-sucedida
+          useToast().success(res.data.message);
+        } catch (error) {
+          reject(error); // Rejeite a Promise com o erro capturado
+          useToast().error(error.response?.data?.message || "Erro ao editar a senha");
+        } finally {
+          this.isLoading = false; // Garante que o estado isLoading seja atualizado no final
+        }
       });
     },
+    
 
     UsuarioListar(page) {
       this.isLoading = true

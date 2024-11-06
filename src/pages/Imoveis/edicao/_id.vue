@@ -207,7 +207,6 @@ const submit = async () => {
     valor: formatValorEnvio(editar.value.valor),
     imagem: formatImagemEnvio(editar.value.imagem),
   };
-  console.log(data);
 
   await imovel.ImovelEditar(data, route.params.id);
 

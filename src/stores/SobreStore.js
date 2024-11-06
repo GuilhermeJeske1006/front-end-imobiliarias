@@ -33,32 +33,27 @@ export const useSobreStore = defineStore('sobre', {
       });
     },
 
-    SobreEditar(data){
-      console.log(data, 'edicao')
-      this.isLoading = true
-
-      return new Promise((resolve, reject) => {
-
-        axios
-          .put(`/sobre/editar/${this.empresa_id}`, {
+    SobreEditar(data) {
+      this.isLoading = true;
+    
+      return new Promise(async (resolve, reject) => {
+        try {
+          const res = await axios.put(`/sobre/editar/${this.empresa_id}`, {
             ...data,
-          })
-          .then((res) => {
-            resolve(); // Resolva a Promise sem nenhum valor adicional
-            useToast().success("Sobre editado com sucesso!");
-
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error); // Rejeite a Promise com o erro
-            useToast().error("Sobre ao editar o Blog!");
-
-          })
-          .finally(() => {
-            this.isLoading = false; // Defina o estado isLoading como false após a chamada
           });
+    
+          resolve(); // Resolva a Promise se a operação for bem-sucedida
+          useToast().success(res.data.message);
+        } catch (error) {
+          console.log(error);
+          reject(error); // Rejeite a Promise com o erro capturado
+          useToast().error(error.response.data.message);
+        } finally {
+          this.isLoading = false; // Garante que o estado isLoading seja atualizado no final
+        }
       });
     },
+    
 
     
   },

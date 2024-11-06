@@ -80,13 +80,13 @@ export const useImovelStore = defineStore('imovel', {
           .then((res) => {
             this.imoveis = res.data
           
-            resolve(); // Resolva a Promise sem nenhum valor adicional
+            resolve(); 
           })
           .catch((error) => {
-            reject(error); // Rejeite a Promise com o erro
+            reject(error); 
           })
           .finally(() => {
-            this.isLoading = false; // Defina o estado isLoading como false após a chamada
+            this.isLoading = false; 
           });
       });
     },
@@ -110,81 +110,72 @@ export const useImovelStore = defineStore('imovel', {
       });
     },
 
-    ImovelSalvar(data){
-      this.isLoading = true
-
-      return new Promise((resolve, reject) => {
-        axios
-          .post('imovel/criar', {
+    ImovelSalvar(data) {
+      this.isLoading = true;
+    
+      return new Promise(async (resolve, reject) => {
+        try {
+          const res = await axios.post('imovel/criar', {
             ...data,
-            empresa_id: this.empresa_id
-          })
-          .then((res) => {
-            this.imovelSalvo = true
-            resolve();
-            useToast().success("Imovel cadastrado com sucesso!");
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error); 
-            useToast().error("Erro ao cadastrar o Imovel!");
-
-          })
-          .finally(() => {
-            this.isLoading = false; 
+            empresa_id: this.empresa_id,
           });
+    
+          this.imovelSalvo = true;
+          resolve(); // Resolva a Promise se a operação for bem-sucedida
+          useToast().success(res.data.message);
+        } catch (error) {
+          console.log(error);
+          reject(error); // Rejeite a Promise com o erro capturado
+          useToast().error(error.response?.data?.message || 'Erro ao salvar o imóvel');
+        } finally {
+          this.isLoading = false; // Garante que o estado isLoading seja atualizado no final
+        }
       });
     },
+    
 
-    ImovelEditar(data, imovelId){
-      this.isLoading = true
-
-      return new Promise((resolve, reject) => {
-        axios
-          .put(`imovel/editar/${imovelId}`, {
+    ImovelEditar(data, imovelId) {
+      this.isLoading = true;
+    
+      return new Promise(async (resolve, reject) => {
+        try {
+          const res = await axios.put(`imovel/editar/${imovelId}`, {
             empresa_id: this.empresa_id,
             ...data,
-          })
-          .then((res) => {
-            console.log(res)
-            this.imovelEditado = true
-            resolve();
-            useToast().success("Imovel editado com sucesso!");
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error); 
-            useToast().error("Erro ao editar o Produto!");
-
-          })
-          .finally(() => {
-            this.isLoading = false; 
           });
+
+          this.imovelEditado = true;
+          useToast().success(res.data.message);
+          resolve(); 
+        } catch (error) {
+          console.log(error);
+          useToast().error(error.response.data.message);
+          reject(error); 
+        } finally {
+          this.isLoading = false; 
+        }
       });
     },
+    
 
-    ImovelDeletar(id){
-      this.isLoading = true
-
-      return new Promise((resolve, reject) => {
-        axios
-          .delete(`imovel/delete/${id}`)
-          .then((res) => {
-            resolve(); // Resolva a Promise sem nenhum valor adicional
-            useToast().success("Imovel excluido com sucesso!");
-
-          })
-          .catch((error) => {
-            reject(error); // Rejeite a Promise com o erro
-            useToast().error("Erro ao excluir o Imovel! Tente novamente!");
-
-          })
-          .finally(() => {
-            this.isLoading = false; // Defina o estado isLoading como false após a chamada
-          });
+    ImovelDeletar(id) {
+      this.isLoading = true;
+    
+      return new Promise(async (resolve, reject) => {
+        try {
+          const res = await axios.delete(`imovel/delete/${id}`);
+          
+          resolve(); // Resolva a Promise se a operação for bem-sucedida
+          useToast().success(res.data.message);
+        } catch (error) {
+          reject(error); // Rejeite a Promise com o erro capturado
+          useToast().error(error.response.data.message);
+        } finally {
+          this.isLoading = false; // Garante que o estado isLoading seja atualizado no final
+        }
       });
     },
-
+    
 
     ExcluirImagem(imagem){
       this.isLoading = true

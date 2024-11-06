@@ -38,58 +38,47 @@ export const useEmpresaStore = defineStore('empresa', {
             });
         });
       },
-      EmpresaEditar(endereco_id){
-        this.isLoading = true
-
-        return new Promise((resolve, reject) => {
-          const form = {
-            ...this.item,
-            endereco_id
+      EmpresaEditar(endereco_id) {
+        this.isLoading = true;
+      
+        return new Promise(async (resolve, reject) => {
+          try {
+            const form = {
+              ...this.item,
+              endereco_id,
+            };
+      
+            const res = await axios.put(`/empresa/editar/${this.empresa_id}`, form);
+      
+            resolve(); // Resolva a Promise se a operação for bem-sucedida
+            useToast().success(res.data.message);
+          } catch (error) {
+            reject(error); // Rejeite a Promise com o erro capturado
+            useToast().error(error.response.data.message);
+          } finally {
+            this.isLoading = false; // Garante que o estado isLoading seja atualizado no final
           }
-  
-          axios
-            .put(`/empresa/editar/${this.empresa_id}`, form)
-            .then((res) => {
-              resolve(); // Resolva a Promise sem nenhum valor adicional
-              useToast().success("Empresa editada com sucesso!");
-  
-            })
-            .catch((error) => {
-              reject(error); // Rejeite a Promise com o erro
-              useToast().error("Erro ao editar a empresa!");
-  
-            })
-            .finally(() => {
-              this.isLoading = false; 
-            });
         });
       },
-
-      EmpresaCadastro(item){
-        this.isLoading = true
-        return new Promise((resolve, reject) => {
-  
-          axios
-            .post(`/empresa/criar`, item)
-            .then((res) => {
-              resolve(); // Resolva a Promise sem nenhum valor adicional
-              useToast().success("Empresa cadastrada com sucesso!");
-              this.empresaCadastrada = true
-            })
-            .catch((error) => {
-              reject(error); // Rejeite a Promise com o erro
-              useToast().error("Erro ao cadastrada a empresa!");
-  
-            })
-            .finally(() => {
-              this.isLoading = false; 
-              
-            });
+      
+      EmpresaCadastro(item) {
+        this.isLoading = true;
+      
+        return new Promise(async (resolve, reject) => {
+          try {
+            const res = await axios.post(`/empresa/criar`, item);
+      
+            resolve(); // Resolva a Promise se a operação for bem-sucedida
+            useToast().success(res.data.message);
+            this.empresaCadastrada = true; // Atualiza o estado após o sucesso
+          } catch (error) {
+            reject(error); // Rejeite a Promise com o erro capturado
+            useToast().error(error.response.data.message);
+          } finally {
+            this.isLoading = false; // Garante que o estado isLoading seja atualizado no final
+          }
         });
       },
-
-
-
     
   },
 
